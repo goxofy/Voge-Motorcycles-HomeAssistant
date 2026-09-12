@@ -1,0 +1,119 @@
+{
+  "title": "VOGE Motorcycle",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect a VOGE account",
+        "description": "Sign in with your VOGE account by default, or choose the advanced token-only mode.",
+        "data": { "auth_mode": "Authentication method" }
+      },
+      "credentials": {
+        "title": "Enter VOGE credentials",
+        "description": "Password login is used only for the read-only vehicle API. The password is stored in Home Assistant local configuration so expired tokens can be renewed automatically.",
+        "data": {
+          "mobile": "Mobile number",
+          "password": "VOGE account password",
+          "token": "Existing access token"
+        }
+      },
+      "vehicle": {
+        "title": "Select the motorcycle",
+        "description": "Selection is local only. The integration will not change the server-side default motorcycle.",
+        "data": { "device_id": "Motorcycle" }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate VOGE",
+        "description": "Enter replacement VOGE credentials for the same motorcycle. Password login renews expired tokens automatically.",
+        "data": {
+          "mobile": "Mobile number",
+          "password": "VOGE account password",
+          "token": "Replacement access token"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "The VOGE credentials are invalid or the token could not be renewed.",
+      "invalid_auth_mode": "Choose a supported authentication method.",
+      "cannot_connect": "Could not read the VOGE cloud vehicle list.",
+      "unknown": "An unexpected error occurred.",
+      "vehicle_missing": "The selected motorcycle is no longer in the validated response.",
+      "target_vehicle_missing": "The replacement token does not have access to the configured motorcycle."
+    },
+    "abort": {
+      "already_configured": "This VOGE account is already configured.",
+      "setup_state_missing": "The setup state expired. Start setup again.",
+      "reauth_entry_missing": "The config entry for reauthentication no longer exists.",
+      "reauth_successful": "Reauthentication succeeded."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "VOGE options",
+        "description": "Polling remains read-only. The server timezone is a provisional assumption for timestamps without an offset.",
+        "data": {
+          "scan_interval": "Telemetry interval (seconds)",
+          "stats_interval": "Statistics interval (seconds)",
+          "alert_interval": "Alert interval (seconds)",
+          "server_timezone": "Server timezone",
+          "convert_coordinates": "Convert GCJ-02 coordinates to WGS84",
+          "enable_alerts": "Poll read-only vehicle message history"
+        }
+      }
+    },
+    "error": { "invalid_timezone": "Enter a valid IANA timezone, such as Asia/Shanghai." }
+  },
+  "entity": {
+    "sensor": {
+      "fuel_percentage": { "name": "Fuel percentage" },
+      "remaining_fuel": { "name": "Remaining fuel" },
+      "fuel_consumption": { "name": "Fuel consumption" },
+      "remaining_range": { "name": "Remaining range" },
+      "total_mileage": { "name": "Total mileage" },
+      "monthly_mileage": { "name": "Monthly mileage" },
+      "average_speed": { "name": "Average speed" },
+      "maximum_speed": { "name": "Maximum speed" },
+      "monthly_duration": { "name": "Monthly ride duration" },
+      "voltage": { "name": "Voltage" },
+      "coolant_temperature": { "name": "Coolant temperature" },
+      "front_tire_pressure": { "name": "Front tire pressure" },
+      "rear_tire_pressure": { "name": "Rear tire pressure" },
+      "front_tire_temperature": { "name": "Front tire temperature" },
+      "rear_tire_temperature": { "name": "Rear tire temperature" },
+      "next_maintenance_mileage": { "name": "Next maintenance mileage" },
+      "harsh_acceleration_count": { "name": "Harsh acceleration count" },
+      "harsh_deceleration_count": { "name": "Harsh deceleration count" },
+      "harsh_steering_count": { "name": "Harsh steering count" },
+      "bending_count": { "name": "Bending count" },
+      "bending_angle": { "name": "Maximum bending angle" },
+      "gps_update_time": { "name": "GPS update time" },
+      "vehicle_update_time": { "name": "Vehicle update time" },
+      "cloud_fetch_time": { "name": "Cloud fetch time" }
+    },
+    "device_tracker": { "motorcycle_location": { "name": "Location" } },
+    "event": {
+      "vehicle_alert": {
+        "name": "Vehicle alert",
+        "state": {
+          "fault_code": "Fault code",
+          "safe_riding": "Safe riding",
+          "vibration": "Vibration",
+          "geofence": "Geofence",
+          "collision": "Collision",
+          "low_voltage": "Low voltage",
+          "low_data": "Low data allowance",
+          "anti_theft": "Anti-theft",
+          "device_disconnected": "Device disconnected",
+          "abnormal_movement": "Abnormal movement",
+          "low_fuel": "Low fuel",
+          "unknown": "Unknown"
+        }
+      }
+    }
+  },
+  "services": {
+    "get_month_trips": { "name": "Get monthly trips", "description": "Return daily and individual trip summaries for the configured motorcycle." },
+    "get_route_geojson": { "name": "Get route GeoJSON", "description": "Return one verified route as a GeoJSON LineString." },
+    "get_day_geojson": { "name": "Get daily GeoJSON", "description": "Return each verified trip for one server-provided day as a separate GeoJSON feature." }
+  }
+}

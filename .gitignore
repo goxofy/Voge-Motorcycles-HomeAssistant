@@ -1,0 +1,27 @@
+.claude
+
+# Supplied binary and reverse-engineering outputs
+*.apk
+jadx-output/
+
+# Private APK-embedded legacy signer material
+# custom_components/voge/_legacy_credentials.py
+custom_components/voge.tar.gz
+# Local capability inspection output
+tools/vehicle_capabilities.json
+
+# Python and test artifacts
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright/
+.coverage
+htmlcov/
+
+# Home Assistant local state
+.storage/
+secrets.yaml
+home-assistant_v2.db*

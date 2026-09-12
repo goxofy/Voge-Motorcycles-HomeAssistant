@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/goxofy/Voge-Motorcycles-HomeAssistant/security/advisories/new
+    about: Report vulnerabilities privately. Do not open a public issue with credentials or vehicle data.
+  - name: Documentation
+    url: https://github.com/goxofy/Voge-Motorcycles-HomeAssistant#readme
+    about: Read installation, configuration, privacy, and troubleshooting guidance.

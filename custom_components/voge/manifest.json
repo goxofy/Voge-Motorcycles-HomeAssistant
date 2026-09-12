@@ -1,0 +1,12 @@
+{
+  "domain": "voge",
+  "name": "VOGE Motorcycle",
+  "codeowners": ["@goxofy"],
+  "config_flow": true,
+  "documentation": "https://github.com/goxofy/Voge-Motorcycles-HomeAssistant",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/goxofy/Voge-Motorcycles-HomeAssistant/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

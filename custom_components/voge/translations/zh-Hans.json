@@ -1,0 +1,136 @@
+{
+  "title": "VOGE 无极摩托车",
+  "config": {
+    "step": {
+      "user": {
+        "title": "连接 VOGE 无极账户",
+        "description": "默认使用 VOGE 账户登录，也可以选择高级令牌模式。",
+        "data": {
+          "auth_mode": "认证方式"
+        }
+      },
+      "credentials": {
+        "title": "输入 VOGE 登录信息",
+        "description": "密码登录仅用于只读车辆 API。密码会保存在 Home Assistant 本地配置中，以便令牌过期后自动重新登录。",
+        "data": {
+          "mobile": "手机号",
+          "password": "VOGE 账户密码",
+          "token": "现有访问令牌"
+        }
+      },
+      "vehicle": {
+        "title": "选择摩托车",
+        "description": "此选择只保存在 Home Assistant。本集成不会修改服务器默认车辆。",
+        "data": {
+          "device_id": "摩托车"
+        }
+      },
+      "reauth_confirm": {
+        "title": "重新认证 VOGE",
+        "description": "请输入仍可访问同一辆车的新登录信息。密码登录会自动更新过期令牌。",
+        "data": {
+          "mobile": "手机号",
+          "password": "VOGE 账户密码",
+          "token": "替换用访问令牌"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "VOGE 登录信息无效，或令牌无法自动更新。",
+      "invalid_auth_mode": "请选择受支持的认证方式。",
+      "cannot_connect": "无法读取 VOGE 云端车辆列表。",
+      "unknown": "发生未知错误。",
+      "vehicle_missing": "已选择车辆不在刚验证的响应中。",
+      "target_vehicle_missing": "新令牌无法访问当前配置的车辆。"
+    },
+    "abort": {
+      "already_configured": "该 VOGE 账户已经配置。",
+      "setup_state_missing": "配置状态已失效，请重新开始。",
+      "reauth_entry_missing": "需要重新认证的配置项已不存在。",
+      "reauth_successful": "重新认证成功。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "VOGE 选项",
+        "description": "所有轮询仍严格只读。无时区后缀的服务器时间目前按可配置的临时时区假设解释。",
+        "data": {
+          "scan_interval": "车辆数据轮询间隔（秒）",
+          "stats_interval": "统计数据轮询间隔（秒）",
+          "alert_interval": "告警消息轮询间隔（秒）",
+          "server_timezone": "服务器时区",
+          "convert_coordinates": "将 GCJ-02 坐标转换为 WGS84",
+          "enable_alerts": "只读轮询车辆消息历史"
+        }
+      }
+    },
+    "error": {
+      "invalid_timezone": "请输入有效的 IANA 时区，例如 Asia/Shanghai。"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "fuel_percentage": { "name": "剩余油量百分比" },
+      "remaining_fuel": { "name": "剩余油量" },
+      "fuel_consumption": { "name": "百公里油耗" },
+      "remaining_range": { "name": "预计剩余续航" },
+      "total_mileage": { "name": "总里程" },
+      "monthly_mileage": { "name": "本月里程" },
+      "average_speed": { "name": "平均速度" },
+      "maximum_speed": { "name": "最高速度" },
+      "monthly_duration": { "name": "本月骑行时长" },
+      "voltage": { "name": "车辆设备电压" },
+      "coolant_temperature": { "name": "冷却液温度" },
+      "front_tire_pressure": { "name": "前轮胎压" },
+      "rear_tire_pressure": { "name": "后轮胎压" },
+      "front_tire_temperature": { "name": "前轮胎温度" },
+      "rear_tire_temperature": { "name": "后轮胎温度" },
+      "next_maintenance_mileage": { "name": "下次保养剩余里程" },
+      "harsh_acceleration_count": { "name": "急加速次数" },
+      "harsh_deceleration_count": { "name": "急减速次数" },
+      "harsh_steering_count": { "name": "急转弯次数" },
+      "bending_count": { "name": "压弯次数" },
+      "bending_angle": { "name": "最大压弯角" },
+      "gps_update_time": { "name": "GPS 更新时间" },
+      "vehicle_update_time": { "name": "车辆数据更新时间" },
+      "cloud_fetch_time": { "name": "云端抓取时间" }
+    },
+    "device_tracker": {
+      "motorcycle_location": { "name": "车辆位置" }
+    },
+    "event": {
+      "vehicle_alert": {
+        "name": "车辆告警",
+        "state": {
+          "fault_code": "故障码提醒",
+          "safe_riding": "安全骑行提醒",
+          "vibration": "震动告警",
+          "geofence": "电子围栏告警",
+          "collision": "碰撞告警",
+          "low_voltage": "低电压告警",
+          "low_data": "流量告警",
+          "anti_theft": "防盗告警",
+          "device_disconnected": "设备异常提醒",
+          "abnormal_movement": "拖车或异常移动告警",
+          "low_fuel": "低油量告警",
+          "unknown": "未知车辆告警"
+        }
+      }
+    }
+  },
+  "services": {
+    "get_month_trips": {
+      "name": "获取月度行程",
+      "description": "返回当前配置车辆的每日摘要和单次行程摘要。"
+    },
+    "get_route_geojson": {
+      "name": "获取单条轨迹 GeoJSON",
+      "description": "把经过目标车辆月度列表验证的 routeId 返回为 GeoJSON LineString。"
+    },
+    "get_day_geojson": {
+      "name": "获取每日轨迹 GeoJSON",
+      "description": "把服务端返回的某一天的每次行程作为独立 GeoJSON feature 返回，不连接停车间隙。"
+    }
+  }
+}

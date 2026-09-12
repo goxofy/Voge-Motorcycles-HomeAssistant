@@ -1,0 +1,65 @@
+get_month_trips:
+  name: Get monthly trips
+  description: Return read-only daily and individual trip summaries for one configured VOGE motorcycle.
+  fields:
+    config_entry_id:
+      name: Config entry
+      required: true
+      selector:
+        config_entry:
+          integration: voge
+    month:
+      name: Month
+      description: Calendar month in yyyy-MM format.
+      required: true
+      example: "2026-09"
+      selector:
+        text:
+
+get_route_geojson:
+  name: Get route GeoJSON
+  description: Return a GeoJSON LineString only after verifying that the route belongs to the configured vehicle's month list.
+  fields:
+    config_entry_id:
+      name: Config entry
+      required: true
+      selector:
+        config_entry:
+          integration: voge
+    month:
+      name: Month
+      description: Month used to validate the route ID, in yyyy-MM format.
+      required: true
+      example: "2026-09"
+      selector:
+        text:
+    route_id:
+      name: Route ID
+      description: A route ID returned by get_month_trips for the same config entry and month.
+      required: true
+      selector:
+        text:
+
+get_day_geojson:
+  name: Get daily GeoJSON
+  description: Return each verified trip as a separate feature and never connect parking gaps.
+  fields:
+    config_entry_id:
+      name: Config entry
+      required: true
+      selector:
+        config_entry:
+          integration: voge
+    month:
+      name: Month
+      description: Calendar month in yyyy-MM format.
+      required: true
+      example: "2026-09"
+      selector:
+        text:
+    day:
+      name: Server day
+      description: Use the exact day string returned by get_month_trips.
+      required: true
+      selector:
+        text:
